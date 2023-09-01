@@ -2,7 +2,7 @@
   "name": "safe-core-protocol-app",
   "version": "0.1.0",
 
-"homepage": "https://zenguardxyz.github.io/garden",
+"homepage": ".",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
