@@ -74,7 +74,7 @@ const config: HardhatUserConfig = {
     },
     base_goerli: {
       ...sharedNetworkConfig,
-      url: `https://base-goerli.blockpi.network/v1/rpc/public`,
+      url: `https://base-goerli.gateway.tenderly.co`,
     },
     base: {
       ...sharedNetworkConfig,

@@ -30,10 +30,10 @@ contract RelayPlugin is BasePluginWithEventMetadata {
     )
         BasePluginWithEventMetadata(
             PluginMetadata({
-                name: "Relay Plugin",
-                version: "1.0.0",
+                name: "Session Key",
+                version: "1.0.1",
                 requiresRootAccess: false,
-                iconUrl: "https://www.gelato.network/brand-assets/GEL_Token_Logos/GEL%20Token%20Logo.png",
+                iconUrl: "https://zenguard.xyz/static/media/key.a0488ec54c807c6dffec42bf35c8b9ea.svg",
                 appUrl: "https://5afe.github.io/safe-core-protocol-demo/#/relay/${plugin}"
             })
         )

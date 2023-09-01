@@ -10,7 +10,12 @@ import OZ from "../assets/icons/oz.png";
 import Certik from "../assets/icons/certik.png";
 
  // Optimism Mainnet
-const EASContractAddress = "0x4200000000000000000000000000000000000021";
+// const EASContractAddress = "0x4200000000000000000000000000000000000021";
+// const schemaId = "0xf79919ba6a03ab2adce36fcf31344023d006fd3418dd33499d3f8b8aa54fabda";
+
+
+ // Base Testnet
+const EASContractAddress = "0xAcfE09Fd03f7812F022FBf636700AdEA18Fd2A7A";
 const schemaId = "0xf79919ba6a03ab2adce36fcf31344023d006fd3418dd33499d3f8b8aa54fabda";
 
 const ZERO_BYTES32 = '0x0000000000000000000000000000000000000000000000000000000000000000';
@@ -124,7 +129,7 @@ export const attestIntegration = async (plugin: string, attestation: string) => 
 
     const provider =  new ethers.BrowserProvider(window.ethereum)
     const registry = await getRegistry(await provider.getSigner())
-    await registry.attestIntegration(plugin, "0x4200000000000000000000000000000000000021", attestation)
+    await registry.attestIntegration(plugin, EASContractAddress, attestation)
 
 }
 

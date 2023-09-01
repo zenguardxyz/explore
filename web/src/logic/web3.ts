@@ -10,3 +10,9 @@ export const getProvider = async(): Promise<AbstractProvider> => {
     console.log("Use JsonRpcProvider")
     return new ethers.JsonRpcProvider(PROTOCOL_PUBLIC_RPC)
 }
+
+export const getJsonRpcProvider = async(): Promise<AbstractProvider> => {
+
+    console.log("Use JsonRpcProvider")
+    return new ethers.JsonRpcProvider(PROTOCOL_PUBLIC_RPC)
+}

@@ -1,6 +1,6 @@
 import { AbiCoder, Contract, Interface, isHexString, keccak256, getAddress } from "ethers";
 import { getMetadataProvider } from "./protocol";
-import { getProvider } from "./web3";
+import { getProvider, getJsonRpcProvider } from "./web3";
 
 export interface PluginMetadata {
     name: string;
@@ -24,7 +24,7 @@ const loadPluginMetadataFromContract = async (provider: string, metadataHash: st
 };
 
 const loadPluginMetadataFromEvent = async (provider: string, metadataHash: string): Promise<string> => {
-    const web3Provider = await getProvider()
+    const web3Provider = await getJsonRpcProvider()
     const eventInterface = new Interface(MetadataEvent)
     const events = await web3Provider.getLogs({
         fromBlock: "earliest",
