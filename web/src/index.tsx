@@ -4,7 +4,7 @@ import './index.css';
 import Home from './routes/home/Home';
 import reportWebVitals from './reportWebVitals';
 import {
-  BrowserRouter,
+  HashRouter,
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
@@ -19,11 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <RouterProvider router={router} /> */}
-    <BrowserRouter>
+    <HashRouter>
       <NotificationsProvider>
         <App />
       </NotificationsProvider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 

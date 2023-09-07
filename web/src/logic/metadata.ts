@@ -24,7 +24,10 @@ const loadPluginMetadataFromContract = async (provider: string, metadataHash: st
 };
 
 const loadPluginMetadataFromEvent = async (provider: string, metadataHash: string): Promise<string> => {
-    const web3Provider = await getJsonRpcProvider()
+    const appProvider = await getProvider()
+    // Updating the provider RPC if it's from the Safe App.
+    const chainId =  (await appProvider.getNetwork()).chainId.toString()
+    const web3Provider = await getJsonRpcProvider(chainId)
     const eventInterface = new Interface(MetadataEvent)
     const events = await web3Provider.getLogs({
         fromBlock: "earliest",

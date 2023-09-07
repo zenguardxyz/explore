@@ -23,6 +23,7 @@ export const networks = {
     safeService: "",
     blockExplorer: "",
     api: "",
+    easExplorer: "",
   },
   mainnet: {
     name: 'Ethereum',
@@ -32,6 +33,7 @@ export const networks = {
     safeService: "https://safe-transaction-mainnet.safe.global",
     blockExplorer: "https://etherscan.io",
     api: `https://api.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "",
   },
   goerli: {
     name: 'Goerli',
@@ -41,15 +43,17 @@ export const networks = {
     safeService: "https://safe-transaction-goerli.safe.global",
     blockExplorer: "https://goerli.etherscan.io",
     api: `https://api-goerli.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "",
   },
   basegoerli: {
     name: 'Base',
     type: 'Testnet',
     chainId: 84531,
-    url: `https://rpc.ankr.com/base_goerli`,
+    url: `https://base-goerli.gateway.tenderly.co`,
     blockExplorer: "https://goerli.basescan.org",
     safeService: "https://safe-transaction-base-testnet.safe.global",
     api: `https://api-goerli.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "https://base-goerli.easscan.org/attestation/view/",
   },
 
   base: {
@@ -57,9 +61,10 @@ export const networks = {
     type: 'Testnet',
     chainId: 84531,
     url: `https://rpc.ankr.com/base_goerli`,
-    blockExplorer: "https://goerli.basescan.org",
+    blockExplorer: "https://basescan.org",
     safeService: "https://safe-transaction-base-testnet.safe.global",
     api: `https://api-goerli.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "",
   },
   optimism: {
     name: 'Optimism',
@@ -69,6 +74,7 @@ export const networks = {
     blockExplorer: "https://optimistic.etherscan.io",
     safeService: "https://safe-transaction-optimism.safe.global",
     api: `https://api-optimistic.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "https://optimism.easscan.org/attestation/view/",
   },
   gnosis: {
     name: 'Gnosis',
@@ -78,6 +84,7 @@ export const networks = {
     safeService: "https://safe-transaction-gnosis-chain.safe.global",
     blockExplorer: "https://gnosisscan.io",
     api: `https://api-goerli.etherscan.io/api?apikey=${ETHERSCAN_API_KEY}`,
+    easExplorer: "",
   },
   polygontestnet: {
     name: 'Polygon',
@@ -87,6 +94,7 @@ export const networks = {
     safeService: "",
     blockExplorer: "https://mumbai.polygonscan.com",
     api: `https://api-testnet.polygonscan.com/api?module=account&action=balance&address=${accountAddress}&apikey=${POLYGONSCAN_API_KEY}`,
+    easExplorer: "",
   },
   polygon: {
     name: 'Polygon',
@@ -96,6 +104,7 @@ export const networks = {
     safeService: "https://safe-transaction-polygon.safe.global",
     blockExplorer: "https://polygonscan.com",
     api: "",
+    easExplorer: "",
   },
 
 

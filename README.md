@@ -13,7 +13,7 @@ The entire flow is deployed on Optimism as it is the common denominator for EAS 
 
 - [Zen Guarden App](https://garden.zenguard.xyz)
 
-- [Try on Safe Wallet as Safe App](https://app.safe.global/share/safe-app?appUrl=https://zen-guarden.vercel.app&chain=oeth)
+- [Try on Safe Wallet as Safe App](https://app.safe.global/share/safe-app?appUrl=https://garden.zenguard.xyz&chain=base-gor)
 
 - [EAS Schema on Optimism](https://optimism.easscan.org/schema/view/0xf79919ba6a03ab2adce36fcf31344023d006fd3418dd33499d3f8b8aa54fabda)
 

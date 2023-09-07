@@ -30,10 +30,10 @@ contract RelayPlugin is BasePluginWithEventMetadata {
     )
         BasePluginWithEventMetadata(
             PluginMetadata({
-                name: "Session Key",
+                name: "Auto Payment",
                 version: "1.0.1",
                 requiresRootAccess: false,
-                iconUrl: "https://zenguard.xyz/static/media/key.a0488ec54c807c6dffec42bf35c8b9ea.svg",
+                iconUrl: "https://zenguard.xyz/static/media/payment.d7894f173542a6f2bdd1714323c38414.svg",
                 appUrl: "https://5afe.github.io/safe-core-protocol-demo/#/relay/${plugin}"
             })
         )

@@ -2,7 +2,6 @@
 import { ethers } from "ethers"
 import SafeAppsSDK, { SafeInfo, BaseTransaction } from '@safe-global/safe-apps-sdk';
 import { SafeAppProvider } from '@safe-global/safe-apps-provider';
-import { PROTOCOL_CHAIN_ID } from "./constants";
 
 const safeAppsSDK = new SafeAppsSDK()
 

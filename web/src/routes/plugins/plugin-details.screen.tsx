@@ -13,6 +13,9 @@ import Safe from "../../assets/icons/safe.png";
 import { EAS_EXPLORER } from "../../logic/constants";
 import { RoutePath } from "../../navigation";
 import { useNavigate } from "react-router-dom";
+import { getProvider } from "../../logic/web3";
+import { NetworkUtil } from "../../logic/networks";
+import { PROTOCOL_CHAIN_ID } from "../../logic/constants"
 
 
 
@@ -30,6 +33,7 @@ export const PluginDetailsScreen = () => {
   const [rating, setRating] = useState(5);
   const [attestation, setAttestation ]: any = useState();
   const [attestationData, setAttestationData ]: any = useState();
+  const [chainId, setChainId]: any = useState(PROTOCOL_CHAIN_ID);
 
  
   const { pluginDetails } = usePluginStore(
@@ -50,11 +54,16 @@ export const PluginDetailsScreen = () => {
      
       try {
 
+        const provider =  await getProvider()
+        const chainId =  (await provider.getNetwork()).chainId
+        setChainId(chainId)
         const attestionId = await loadAttestation(pluginDetails.address)
         console.log(attestionId)
         setAttested(await isValidAttestation(attestionId))
 
         const attestation = await loadAttestationDetails(attestionId);
+
+        console.log(attestation)
 
         setAttestation(attestation);
         setAttestationData(loadAttestationData(attestation.data))
@@ -243,7 +252,7 @@ const handleAddAttestation = async () => {
         <>
           { attested && <> 
             <Paper >
-          <Alert ref={ref} className={classes.alert} onClick={()=>{window.open(EAS_EXPLORER + attestation.uid)}} icon={<IconCheck size="10rem" />}  title="Verified plugin" color="green" >
+          <Alert ref={ref} className={classes.alert} onClick={()=>{window.open(NetworkUtil.getNetworkById(Number(chainId))?.easExplorer + attestation.uid)}} icon={<IconCheck size="10rem" />}  title="Verified plugin" color="green" >
              The plugin has been audited and attested. Click here to know more on EAS.
           </Alert> 
           </Paper>

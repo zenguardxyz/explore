@@ -2,7 +2,6 @@ import { Interface, ethers, Signer } from "ethers"
 import protocolDeployments from "@safe-global/safe-core-protocol"
 import { getProvider, getJsonRpcProvider } from "./web3"
 import { PROTOCOL_CHAIN_ID } from "./constants";
-import { NetworkUtil } from "./networks";
 
 // NetworkUtil.getNetworkById()
 
@@ -17,9 +16,11 @@ const PLUGIN_ABI = [
 
 export const getManager = async() => {
     const provider = await getProvider()
-    console.log('asd')
+    const chainId =  (await provider.getNetwork()).chainId.toString()
+
     
-    const registryInfo = protocolDeployments[PROTOCOL_CHAIN_ID][0].contracts.SafeProtocolManagerAttestation;
+    const registryInfo = protocolDeployments[chainId as keyof typeof protocolDeployments][0].contracts.SafeProtocolManagerAttestation;
+    console.log(registryInfo)
     return new ethers.Contract(
         registryInfo.address,
         registryInfo.abi,
@@ -30,11 +31,10 @@ export const getManager = async() => {
 export const getRegistry = async(signer?: Signer) => {
 
     const provider = await getProvider()
-    const bProvider = await getJsonRpcProvider()
+    // Updating the provider RPC if it's from the Safe App.
     const chainId =  (await provider.getNetwork()).chainId.toString()
-    console.log(chainId)
-    console.log(chainId as keyof typeof protocolDeployments)
-    // chainId as keyof typeof protocolDeployments
+    const bProvider = await getJsonRpcProvider(chainId)
+
     const registryInfo = protocolDeployments[chainId as keyof typeof protocolDeployments][0].contracts.SafeProtocolRegistryAttestation;
 
     console.log(registryInfo)

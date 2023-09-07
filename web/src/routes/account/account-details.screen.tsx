@@ -8,9 +8,7 @@ import { disablePlugin, enablePlugin } from "../../logic/plugins";
 import { attestIntegration, isValidAttestation, createAttestation, loadAttestation, loadAttestationDetails, loadAttestationData, loadAttester } from "../../logic/attestation";
 import { LoaderModal } from "../../components/modals/loader.component";
 import { useHover } from "@mantine/hooks";
-import Safe from "../../assets/icons/safe.png";
 
-import { EAS_EXPLORER } from "../../logic/constants";
 import { RoutePath } from "../../navigation";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";

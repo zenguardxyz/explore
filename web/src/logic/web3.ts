@@ -1,6 +1,7 @@
 import { AbstractProvider, ethers } from "ethers"
 import { getSafeAppsProvider, isConnectedToSafe } from "./safeapp"
-import { PROTOCOL_PUBLIC_RPC } from "./constants"
+import { PROTOCOL_CHAIN_ID } from "./constants"
+import { NetworkUtil } from "./networks";
 
 export const getProvider = async(): Promise<AbstractProvider> => {
     if (await isConnectedToSafe()) {
@@ -8,11 +9,14 @@ export const getProvider = async(): Promise<AbstractProvider> => {
         return await getSafeAppsProvider()
     }
     console.log("Use JsonRpcProvider")
-    return new ethers.JsonRpcProvider(PROTOCOL_PUBLIC_RPC)
+    return new ethers.JsonRpcProvider(NetworkUtil.getNetworkById(PROTOCOL_CHAIN_ID)?.url)
 }
 
-export const getJsonRpcProvider = async(): Promise<AbstractProvider> => {
+export const getJsonRpcProvider = async(chainId: string): Promise<AbstractProvider> => {
 
     console.log("Use JsonRpcProvider")
-    return new ethers.JsonRpcProvider(PROTOCOL_PUBLIC_RPC)
+
+    console.log(NetworkUtil.getNetworkById(parseInt(chainId))?.url)
+    
+    return new ethers.JsonRpcProvider(NetworkUtil.getNetworkById(parseInt(chainId))?.url)
 }
