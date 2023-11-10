@@ -30,17 +30,28 @@ import { useState } from "react";
 const useStyles = createStyles((theme) => ({
   nav: {
     height: "64px",
-    display: "flex",
+    // display: "flex",
+    // minWidth: "591px",
+    [`@media (max-width: 900px)`]: {
+      maxWidth: "100%",
+      minWidth: "100%",
+      width: "100%",
+    },
+    gap: "2rem",
     alignItems: "center",
     background: theme.colorScheme === "dark" ? "1A1B1E" : "white",
-    padding: "10px",
 
     borderBottom:
       theme.colorScheme === "dark" ? "1px solid  #25262B" : "1px solid #ECEEF5",
   },
-  wrappera: {
+
+
+  wrapper: {
     maxWidth: "1187px",
-    margin: "0 auto",
+    // margin: "0 auto",
+    borderRadius: "8px",
+    // width: "900px",
+    margin: "10px auto 0 auto",
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
       maxWidth: "100%",
     },
@@ -111,22 +122,13 @@ export const Head = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Header  height={{ base: 70, md: 70 }} p="md">
-      {/* <div className={classes.wrapper} style={{ display: 'flex', alignItems: 'center', height: '100%' }}> */}
-  
 
-      <Box
-      sx={(theme) => ({
-        paddingLeft: theme.spacing.xs,
-        paddingRight: theme.spacing.xs,
-        paddingBottom: theme.spacing.lg,
-        borderBottom: `${rem(1)} solid ${
-          theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-        }`,
-      })}
-    >
+
        
-         
+      <nav className={classes.nav}>
+        
+      <div className={classes.wrapper}>
+        <div className={classes.maincontainer}>
         <Group position="apart">
           <Image
             onClick={() => {
@@ -187,19 +189,12 @@ export const Head = (props) => {
                 )}
               </div>
             </Group>
-            <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
           </Group>
           </Group>
-          </Box>
+
       {/* </div> */}
-    </Header>
+      </div>
+      </div>
+    </nav>
   );
 };

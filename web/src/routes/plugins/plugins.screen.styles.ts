@@ -10,6 +10,7 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     gap: "24px",
     flexWrap: "wrap",
+    gridTemplateColumns: 'repeat(3, 1fr)',
     // display: "flex",
   },
 

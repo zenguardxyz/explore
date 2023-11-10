@@ -27,9 +27,10 @@ const PluginMeta: FunctionComponent<PluginMetaProps> = ({ metadata }) => {
 
 type PluginProps = {
   address: string;
+  pluginDetails?: any
 };
 
-export const Plugin: FunctionComponent<PluginProps> = ({ address }) => {
+export const Plugin: FunctionComponent<PluginProps> = ({ address, pluginDetails }) => {
     const [details, setDetails] = useState<PluginDetails|undefined>(undefined);
     const blocky = blockies.create({ seed: address }).toDataURL();
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const Plugin: FunctionComponent<PluginProps> = ({ address }) => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                setDetails(await loadPluginDetails(address))
+                setDetails(pluginDetails ? pluginDetails : await loadPluginDetails(address))
             } catch(e) {
                 console.warn(e)
             }

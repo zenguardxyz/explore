@@ -1,4 +1,4 @@
-# Zen Guarden  - Web App
+# ZenGuard  - Smart Account Module Marketplace
 
 ## Getting started
 

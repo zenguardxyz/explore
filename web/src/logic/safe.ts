@@ -7,6 +7,7 @@ const SAFE_ABI = [
     "function isModuleEnabled(address module) public view returns (bool)",
     "function nonce() public view returns (uint256)",
     "function enableModule(address module) public",
+    "function setGuard(address module) public",
     "function execTransaction(address to,uint256 value,bytes calldata data,uint8 operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable returns (bool success)"
 ]
 
@@ -25,6 +26,14 @@ export const isModuleEnabled = async(safeAddress: string, module: string): Promi
     return await safe.isModuleEnabled(module)
 } 
 
+
+export const isGuardEnabled = async(safeAddress: string, module: string): Promise<boolean> => {
+    const safe = await getSafe(safeAddress)
+    const guard = await safe.getGuard()
+    console.log(guard)
+    return (guard != 0)
+} 
+
 export const getCurrentNonce = async(safeAddress: string): Promise<BigNumberish> => {
     const safe = await getSafe(safeAddress)
     return await safe.nonce()
@@ -38,6 +47,17 @@ export const buildEnableModule = async(safeAddress: string, module: string): Pro
         data: (await safe.enableModule.populateTransaction(module)).data
     }
 } 
+
+export const buildEnableGuard = async(safeAddress: string, module: string): Promise<BaseTransaction> => {
+    const safe = await getSafe(safeAddress)
+    return {
+        to: safeAddress,
+        value: "0",
+        data: (await safe.setGuard.populateTransaction(module)).data
+    }
+} 
+
+
 
 export const buildSignatureBytes = (signatures: SafeMultisigConfirmation[]): string => {
     const SIGNATURE_LENGTH_BYTES = 65;

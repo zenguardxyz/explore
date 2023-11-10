@@ -8,6 +8,7 @@ export interface PluginMetadata {
     requiresRootAccess: boolean;
     iconUrl: string;
     appUrl: string;
+    hook: boolean;
 }
 
 // const ProviderType_IPFS = BigInt(0);
@@ -16,7 +17,7 @@ const ProviderType_Contract = BigInt(2);
 const ProviderType_Event = BigInt(3);
 
 const MetadataEvent: string[] = ["event Metadata(bytes32 indexed metadataHash, bytes data)"]
-const PluginMetadataType: string[] = ["string name", "string version", "bool requiresRootAccess", "string iconUrl", "string appUrl"];
+const PluginMetadataType: string[] = ["string name", "string version", "bool requiresRootAccess", "string iconUrl", "string appUrl", "bool hook"];
 
 const loadPluginMetadataFromContract = async (provider: string, metadataHash: string): Promise<string> => {
     const providerInstance = await getMetadataProvider(provider);
@@ -77,6 +78,7 @@ export const decodePluginMetadata = (data: string, pluginAddress?: string): Plug
         requiresRootAccess: decoded[2],
         iconUrl: decoded[3],
         appUrl: parseAppUrl(decoded[4], pluginAddress),
+        hook: decoded[5],
     };
 };
 

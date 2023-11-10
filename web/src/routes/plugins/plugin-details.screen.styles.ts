@@ -2,8 +2,10 @@ import { createStyles } from "@mantine/core";
 
 export const useStyles = createStyles((theme) => ({
   settingsContainer: {
-    borderRadius: "8px",
-    width: "591px",
+    // borderRadius: "8px",
+    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.08)",
+    borderRadius: "1.5rem",
+    width: "900px",
     margin: "45px auto 0 auto",
     minWidth: "591px",
     [`@media (max-width: 900px)`]: {

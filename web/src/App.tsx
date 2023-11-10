@@ -11,34 +11,6 @@ function App() {
   const { pathname } = useLocation();
 
 
-    // routes for landing page
-    if (pathname === "/" || pathname === "/teams")
-    return ( 
-      <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        theme={{
-          fontFamily: "Inter",
-          colorScheme,
-          breakpoints: {
-            xs: '30em',
-            sm: '48em',
-            md: '64em',
-            lg: '74em',
-            xl: '90em',
-          },
-        }}
-        withGlobalStyles
-        withNormalizeCSS
-        
-        
-      >
-    <LandingPageNavigation />
-    </MantineProvider>
-    </ColorSchemeProvider>  );
-
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}

@@ -18,9 +18,8 @@ export const getManager = async() => {
     const provider = await getProvider()
     const chainId =  (await provider.getNetwork()).chainId.toString()
 
-    
+
     const registryInfo = protocolDeployments[chainId as keyof typeof protocolDeployments][0].contracts.SafeProtocolManagerAttestation;
-    console.log(registryInfo)
     return new ethers.Contract(
         registryInfo.address,
         registryInfo.abi,
@@ -36,9 +35,6 @@ export const getRegistry = async(signer?: Signer) => {
     const bProvider = await getJsonRpcProvider(chainId)
 
     const registryInfo = protocolDeployments[chainId as keyof typeof protocolDeployments][0].contracts.SafeProtocolRegistryAttestation;
-
-    console.log(registryInfo)
-
     return new ethers.Contract(
         registryInfo.address,
         registryInfo.abi,
