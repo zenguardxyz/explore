@@ -5,7 +5,7 @@ const usePluginStore = create((set) => ({
   accountDetails: {},
   authDetails: {},
   pluginDetails: {},
-  chainId:  localStorage.getItem("chainId") ? parseInt(localStorage.getItem("chainId")!) : 84531,
+  chainId:  localStorage.getItem("chainId") ? parseInt(localStorage.getItem("chainId")!) : 11155111,
   confirming: false,
   confirmed: false,
 

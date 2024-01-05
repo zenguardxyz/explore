@@ -4,17 +4,20 @@ import {
   Group,
   Image,
   ThemeIcon,
-  Header,
-  Box, 
-  rem,
+  Avatar,
   useMantineTheme,
   MediaQuery,
-  Burger
+  Burger,
+  Chip
 } from "@mantine/core";
 import LogoLight from "../../../assets/logo/logo-light.svg";
 import LogoDark from "../../../assets/logo/logo-dark.svg";
+import Base from "../../../assets/icons/base.png";
+import ETH from "../../../assets/icons/eth.svg";
+import Gnosis from "../../../assets/icons/gno.svg";
 import { useNavigate } from "react-router-dom";
 import { RoutePath } from "../../../navigation/route-path";
+import { NetworkUtil } from "../../../logic/networks";
 
 import { ActionIcon, Switch, useMantineColorScheme } from "@mantine/core";
 import {
@@ -25,7 +28,27 @@ import {
 } from "@tabler/icons";
 
 import usePluginStore from "../../../store/plugin/plugin.store";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getProvider } from "../../../logic/web3";
+import { Badge } from "@mantine/core";
+
+
+const badgeIcons =   [
+  { ids: ['84531'], img: Base },
+  { ids: ['11155111', '5', '1'], img: ETH },
+  { ids: ['100'], img: Gnosis}
+  // Add more mappings as needed
+];
+
+function getIconForId(id) {
+  for (const icon of badgeIcons) {
+    if (icon.ids.includes(id.toString())) {
+      return icon.img;
+    }
+  }
+  // Return a default icon or handle the case when no mapping is found
+  return 'defaultIcon';
+}
 
 const useStyles = createStyles((theme) => ({
   nav: {
@@ -47,10 +70,9 @@ const useStyles = createStyles((theme) => ({
 
 
   wrapper: {
-    maxWidth: "1187px",
+    maxWidth: "900px",
     // margin: "0 auto",
     borderRadius: "8px",
-    // width: "900px",
     margin: "10px auto 0 auto",
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
       maxWidth: "100%",
@@ -64,6 +86,11 @@ const useStyles = createStyles((theme) => ({
     flexDirection: "row",
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
       maxWidth: "100%",
+    },
+  },
+  network: { 
+    [`@media (max-width: 500px)`]: {
+      visibility: "hidden",
     },
   },
   buttonContainer: {
@@ -81,6 +108,15 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  mode: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    [`@media (max-width: 500px)`]: {
+      visibility: "hidden",
+    },
   },
   root: {
     position: "relative",
@@ -111,6 +147,9 @@ export const Head = (props) => {
   const {setOpened, opened} = props
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
+  const [network, setNetwork] = useState('');
+  const [chainId, setChainId] = useState(11155111);
+
   const { } =
   usePluginStore((state: any) => state);
   const theme = useMantineTheme();
@@ -121,6 +160,23 @@ export const Head = (props) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+
+    ;(async () => {
+
+
+      const provider = await getProvider()
+
+      const chainId = (await provider.getNetwork()).chainId
+      setChainId(chainId)
+      setNetwork(`${NetworkUtil.getNetworkById(parseInt(chainId))?.name} ${NetworkUtil.getNetworkById(parseInt(chainId))?.type}`);
+
+  })()   
+  }, [])
+
+
+
   return (
 
 
@@ -130,6 +186,7 @@ export const Head = (props) => {
       <div className={classes.wrapper}>
         <div className={classes.maincontainer}>
         <Group position="apart">
+        <Group className={classes.container} >
           <Image
             onClick={() => {
               navigate(RoutePath.plugins);
@@ -139,38 +196,25 @@ export const Head = (props) => {
             alt="Logo"
             width={"200px"}
           />
+          <Badge checked={false} checkIcon={<IconBrandDiscord/>} size="sm" color="orange" variant="light">ALPHA</Badge>
+          </Group>
+
+          
 
             
           
-          <Group className={classes.container}>
-            <ActionIcon
-              className={classes.buttonContainer}
-              // variant="filled"
-              component="a"
-              href="#"
-              title="Discord"
-              target="_blank"
-            >
-              {/* <Image src={Discord} height={18} width={18} /> */}
-              <>
-                <IconBrandDiscord size={18} />
-              </>
-            </ActionIcon>
-            <ActionIcon
-              className={classes.buttonContainer}
-              // variant="filled"
-              component="a"
-              href="https://github.com/zenguardxyz/garden"
-              title="github"
-              target="_blank"
-            >
-              <>
-                <IconBrandGithub size={18} />
-              </>
-              {/* <Image src={GitHub} height={18} width={18} /> */}
-            </ActionIcon>
+          <Group className={classes.mode}>
 
-            <Group className={classes.container} position="center">
+          <Badge  pl={0} color="gray" variant="light" leftSection={ <Avatar
+    alt="Avatar for badge"
+    size={24}
+    mr={5}
+    src={getIconForId(chainId)}
+  />} size="lg" className={classes.network} checked={false} icon={<IconSun />}>{network}</Badge>
+
+
+
+            {/* <Group className={classes.container} position="center"> */}
               <div className={classes.container}>
                 {dark ? (
                   <IconSun
@@ -188,7 +232,7 @@ export const Head = (props) => {
                   />
                 )}
               </div>
-            </Group>
+            {/* </Group> */}
           </Group>
           </Group>
 

@@ -15,6 +15,7 @@ import Safe from "../../assets/icons/safe.png";
 
 export interface GenericCardProps {
   enabled?: boolean;
+  publisher?: string;
   title?: string;
   image?: string;
   loading?: boolean;
@@ -25,8 +26,9 @@ export interface GenericCardProps {
 export const GenericCard: React.FC<GenericCardProps> = (
   props
 ) => {
-  const { enabled, width, title, loading = true, onClick, image} = props;
+  const { enabled, width, title, loading = true, onClick, image, publisher} = props;
 
+  console.log(publisher)
   const { classes } = useStyles();
   return (
     <>
@@ -40,7 +42,7 @@ export const GenericCard: React.FC<GenericCardProps> = (
       <div>
               <p className={classes.pluginName}>{title}</p>
               <p className={classes.description}>
-              Published By: {loadPublisher('0x958543756A4c7AC6fB361f0efBfeCD98E4D297Db').name}.
+              Published By: {loadPublisher(publisher)?.name}.
               </p>
             </div>
       {enabled && <Chip checked color="green" variant="light" size="xs" radius="md">Enabled</Chip>}

@@ -18,7 +18,6 @@ export interface PluginDetails {
 export const loadPluginDetails = async(pluginAddress: string): Promise<PluginDetails> => {
     const plugin = await getPlugin(pluginAddress)
     const metadata = await loadPluginMetadata(plugin)
-    console.log(metadata)
     if (!await isConnectedToSafe()) return { metadata }
     const enabled = await isPluginEnabled(pluginAddress) || await isHookEnabled(pluginAddress)
     return  { metadata, enabled }
@@ -42,9 +41,6 @@ export const loadPluginSettings = async(plugin: string): Promise<string[]> => {
 
     const addedEvents = (await pluginSettings.queryFilter(pluginSettings.filters.AddressWhitelisted)) as EventLog[]
 
-
-    console.log(addedEvents)    
-
     let addedAddresses = addedEvents.filter((event: EventLog) => event.args.safeAccount == safeInfo.safeAddress || event.args.safeAccount == ZeroAddress).map((event: EventLog)  => event.args.account)
     console.log(addedAddresses)
 
@@ -62,14 +58,14 @@ export const loadPluginSettings = async(plugin: string): Promise<string[]> => {
     return addedAddresses 
 }
 
-export const loadPlugins = async(filterFlagged: boolean = true): Promise<string[]> => {
+export const loadPlugins = async(filterFlagged: boolean = true): Promise<any[]> => {
     const registry = await getRegistry()
     const addedEvents = (await registry.queryFilter(registry.filters.IntegrationAdded)) as EventLog[]
-    const addedIntegrations = addedEvents.map((event: EventLog) => event.args.integration)
+    const addedIntegrations = addedEvents.map((event: EventLog) => ({integration: event.args.integration, publisher: event.args.publisher}))
     if (!filterFlagged) return addedIntegrations;
     const flaggedEvents = (await registry.queryFilter(registry.filters.IntegrationFlagged)) as EventLog[]
-    const flaggedIntegrations = flaggedEvents.map((event: EventLog) => event.args.integration)
-    return addedIntegrations.filter((integration) => flaggedIntegrations.indexOf(integration) < 0)
+    const flaggedIntegrations = flaggedEvents.map((event: EventLog) => ({integration: event.args.integration, publisher: event.args.publisher}))
+    return addedIntegrations.filter((data) => flaggedIntegrations.indexOf(data.integration) < 0)
 }
 
 

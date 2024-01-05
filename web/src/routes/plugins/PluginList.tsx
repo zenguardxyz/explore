@@ -24,7 +24,7 @@ function PluginList() {
       setPlugins(plugins)
       for(let i=0; i< plugins.length; i++) 
       {
-         newDetails.push({... {module: plugins[i]} , ...await loadPluginDetails(plugins[i])})
+         newDetails.push({... {module: plugins[i].integration} , ...await loadPluginDetails(plugins[i].integration)})
          setDetails(newDetails)
       }
 
@@ -72,8 +72,8 @@ function PluginList() {
           <h2 style={{ fontSize: '24px', fontWeight: '600' }}>
             Explore Modules
           </h2>
-          <Button color='green' variant='filled'>
-            Submit Module (Soon)
+          <Button color='green' variant='filled' onClick={()=> window.open("https://dashboard.zenguard.xyz")}>
+            Submit Module
           </Button>
         </Container>
         <div
@@ -106,11 +106,13 @@ function PluginList() {
       <div className={classes.actionsContainer}>
       {plugins.map((plugin) => 
         <Plugin
-        address={plugin}
+        address={plugin.integration}
+        publisher={plugin.publisher}
         pluginDetails={plugin.metadata? {enabled: plugin.enabled, metadata: plugin.metadata}: null}
       />)}
       { !plugins.length && mockPlugins.map((plugin) => 
         <Plugin
+        publisher={plugin}
         address={plugin}
       />)}
       </div>

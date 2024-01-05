@@ -1,7 +1,7 @@
 import { Box, Center, Container, Group, Loader, Modal, Text, Image, Paper, Stack, Button, TextInput, Divider, Alert, Skeleton, Rating, useMantineTheme, Avatar, Chip } from "@mantine/core";
 import { useStyles } from "./plugin-details.screen.styles";
 import usePluginStore from "../../store/plugin/plugin.store";
-import { IconAlertCircle, IconAt, IconCheck, IconCopy, IconPlugConnected, IconCheckbox, IconWallet, IconSettings, IconPlaylistAdd, IconPlus, IconCross } from "@tabler/icons";
+import { IconAlertCircle, IconAt, IconCheck, IconCopy, IconPlugConnected, IconCheckbox, IconWallet, IconSettings, IconPlaylistAdd, IconPlus, IconCross, IconApps, IconMinus, IconEraser } from "@tabler/icons";
 import { BackButton, ProgressStatus, Title } from "../../components";
 import { useCallback, useEffect, useState } from "react";
 import { disableHook, disablePlugin, enablePlugin, loadPluginSettings, setHook, updatePlugin } from "../../logic/plugins";
@@ -74,7 +74,7 @@ export const PluginDetailsScreen = () => {
         console.log(attestation)
 
         setAttestation(attestation);
-        setAttestationData(loadAttestationData(attestation.data))
+        setAttestationData(await loadAttestationData(attestation.data))
     
       }
       catch(e)
@@ -99,8 +99,7 @@ export const PluginDetailsScreen = () => {
           else
             await disablePlugin(pluginDetails.address)
         }
-        else {console.log('asdasd...................................................................')
-          console.log(pluginDetails)
+        else {
             if (pluginDetails.metadata.hook) 
             await setHook(pluginDetails.address, pluginDetails.metadata.requiresRootAccess)
            else 
@@ -380,7 +379,7 @@ const handleAddAttestation = async () => {
       <Paper withBorder radius="md" p="xl" style={{
                     marginTop: 30
                   }}>
-        <Stack>
+        <Group align='flex-start'>
         <Group
         >     
         <Image src={ pluginDetails.metadata?.iconUrl ? pluginDetails.metadata?.iconUrl : Safe } width={60}  />   
@@ -394,14 +393,15 @@ const handleAddAttestation = async () => {
         </Text>{" "}
         </Stack>
         </Group>  
-       <Group >
+         <Group style={{  marginLeft: 'auto' }} >
          
 
 
             <Button
                 // loading={registering}
                 onClick={() => { handleToggle() }}
-                leftIcon={<IconPlugConnected />} 
+                leftIcon={pluginDetails.enabled ? <IconEraser /> : <IconPlus />} 
+                radius="md"
                 loading={enabling}
                 color={ pluginDetails.enabled ? "red" : "dark" }
                 variant={ pluginDetails.enabled ? "outline" : "filled" }
@@ -410,7 +410,7 @@ const handleAddAttestation = async () => {
                   pluginDetails.enabled ? "": "#81af6f" ,
                 }}
               >
-               { pluginDetails.enabled ? "Disable Plugin" : "Enable Plugin" }
+               { pluginDetails.enabled ? "Disable" : "Enable" }
               </Button>
 
               { pluginDetails.metadata?.hook && <Button
@@ -419,10 +419,23 @@ const handleAddAttestation = async () => {
                 leftIcon={<IconSettings />} 
                 color={ "gray" }
                 variant={ "outline" }
+                radius="md"
               >
                 Settings
               </Button>
               }
+
+           <Button style={{  marginLeft: 'auto' }}
+                      // loading={registering}
+                      onClick={() => { window.location =pluginDetails.metadata.appUrl }}
+                      leftIcon={<IconApps />} 
+                      variant="outline"
+                      radius="md"
+                      color='gray'
+                      // sx={{ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.gray[1] : theme.colors.gray[1]}}
+                    >
+                    OPEN APP
+                </Button>
 
 
 
@@ -430,7 +443,7 @@ const handleAddAttestation = async () => {
 
               </Group>
 
-              </Stack>
+            </Group>
 
 
           </Paper>

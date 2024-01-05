@@ -27,10 +27,11 @@ const PluginMeta: FunctionComponent<PluginMetaProps> = ({ metadata }) => {
 
 type PluginProps = {
   address: string;
+  publisher: string;
   pluginDetails?: any
 };
 
-export const Plugin: FunctionComponent<PluginProps> = ({ address, pluginDetails }) => {
+export const Plugin: FunctionComponent<PluginProps> = ({ address, publisher, pluginDetails }) => {
     const [details, setDetails] = useState<PluginDetails|undefined>(undefined);
     const blocky = blockies.create({ seed: address }).toDataURL();
     const navigate = useNavigate();
@@ -62,6 +63,7 @@ export const Plugin: FunctionComponent<PluginProps> = ({ address, pluginDetails 
             title={details?.metadata.name}
             image={details?.metadata.iconUrl}
             enabled={details?.enabled}
+            publisher={publisher}
             loading={ details == undefined }
             onClick={ () => handleClick(details) }
             />
