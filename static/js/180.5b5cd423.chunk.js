@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksafe_core_protocol_app=self.webpackChunksafe_core_protocol_app||[]).push([[180],{69180:(e,o,t)=>{t.r(o),t.d(o,{default:()=>f});var c=null;"undefined"!==typeof WebSocket?c=WebSocket:"undefined"!==typeof MozWebSocket?c=MozWebSocket:"undefined"!==typeof t.g?c=t.g.WebSocket||t.g.MozWebSocket:"undefined"!==typeof window?c=window.WebSocket||window.MozWebSocket:"undefined"!==typeof self&&(c=self.WebSocket||self.MozWebSocket);const f=c}}]);
+//# sourceMappingURL=180.5b5cd423.chunk.js.map
